@@ -1,0 +1,138 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+security passwords min-length 8
+!
+hostname floor-3-router
+!
+!
+!
+enable secret 5 $1$mERr$5.a6P4JqbNiMX01usIfka/
+!
+!
+ip dhcp excluded-address 192.168.1.1
+ip dhcp excluded-address 192.168.1.2
+ip dhcp excluded-address 192.168.2.1
+ip dhcp excluded-address 192.168.2.2
+!
+ip dhcp pool IT
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ domain-name hotelabdul.com
+ip dhcp pool admin
+ network 192.168.2.0 255.255.255.0
+ default-router 192.168.2.1
+ domain-name wr
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username cisco secret 5 $1$mERr$5.a6P4JqbNiMX01usIfka/
+!
+!
+license udi pid CISCO2901/K9 sn FTX1524FV6H-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ftp username cisco
+ip ftp password cisco123
+ip domain-name hotelabdul.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/1
+ description connection to floor 3 switch
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.10
+ description vlan 10 default gateway
+ encapsulation dot1Q 10
+ ip address 192.168.1.1 255.255.255.0
+!
+interface GigabitEthernet0/1.20
+ description vlan 20 default gateway
+ encapsulation dot1Q 20
+ ip address 192.168.2.1 255.255.255.0
+!
+interface GigabitEthernet0/1.999
+ description switch managment interface default gateway
+ encapsulation dot1Q 999
+ ip address 192.168.200.9 255.255.255.252
+!
+interface Serial0/0/0
+ description WAN connection to 10.10.10.5 on floor 1 router
+ ip address 10.10.10.6 255.255.255.252
+!
+interface Serial0/0/1
+ description WAN connection to 10.10.10.9 on floor 2 router
+ ip address 10.10.10.9 255.255.255.252
+ clock rate 64000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface GigabitEthernet0/1
+ network 10.10.10.4 0.0.0.3 area 0
+ network 10.10.10.8 0.0.0.3 area 0
+ network 192.168.1.0 0.0.0.255 area 0
+ network 192.168.2.0 0.0.0.255 area 0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/0/0 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 5 0
+ logging synchronous
+ login local
+!
+line aux 0
+!
+line vty 0 4
+ session-limit 5
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input ssh
+!
+!
+!
+end
+

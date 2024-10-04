@@ -1,0 +1,183 @@
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname floor-1-switch
+!
+ip ftp username cisco
+ip ftp password cisco123
+enable password 7 0822455D0A16544541
+!
+!
+!
+ip domain-name hotelabdul.com
+!
+username cisco secret 5 $1$mERr$5.a6P4JqbNiMX01usIfka/
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ description vlan 80 switch ports
+ switchport access vlan 80
+ switchport mode access
+!
+interface FastEthernet0/2
+ description vlan 80 switch ports
+ switchport access vlan 80
+ switchport mode access
+!
+interface FastEthernet0/3
+ description vlan 70 switch ports
+ switchport access vlan 70
+ switchport mode access
+!
+interface FastEthernet0/4
+ description vlan 70 switch ports
+ switchport access vlan 70
+ switchport mode access
+!
+interface FastEthernet0/5
+ description vlan 60 switch ports
+ switchport access vlan 60
+ switchport mode access
+!
+interface FastEthernet0/6
+ description vlan 60 switch ports
+ switchport access vlan 60
+ switchport mode access
+!
+interface FastEthernet0/7
+ switchport mode access
+!
+interface FastEthernet0/8
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/9
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/10
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/11
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/12
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/13
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/14
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/15
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/16
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/17
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/18
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/19
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/20
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/21
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/22
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/23
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/24
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/1
+ description trunk connection to floor 1 router
+ switchport trunk native vlan 900
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport access vlan 69
+ switchport mode access
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan999
+ description management interface
+ ip address 192.168.200.2 255.255.255.252
+!
+ip default-gateway 192.168.200.1
+!
+!
+!
+!
+line con 0
+ logging synchronous
+ login local
+!
+line vty 0 4
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+

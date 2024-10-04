@@ -1,0 +1,155 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+security passwords min-length 8
+!
+hostname floor-1-router
+!
+!
+!
+enable secret 5 $1$mERr$5.a6P4JqbNiMX01usIfka/
+!
+!
+ip dhcp excluded-address 192.168.8.1
+ip dhcp excluded-address 192.168.7.1
+ip dhcp excluded-address 192.168.6.1
+ip dhcp excluded-address 192.168.8.2
+ip dhcp excluded-address 192.168.7.2
+ip dhcp excluded-address 192.168.6.2
+!
+ip dhcp pool reception
+ network 192.168.8.0 255.255.255.0
+ default-router 192.168.8.1
+ dns-server 10.10.10.14
+ domain-name wr
+ip dhcp pool store
+ network 192.168.7.0 255.255.255.0
+ default-router 192.168.7.1
+ dns-server 10.10.10.14
+ domain-name hotelabdul.com
+ip dhcp pool logistics
+ network 192.168.6.0 255.255.255.0
+ default-router 192.168.6.1
+ dns-server 10.10.10.14
+ domain-name wr
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username cisco secret 5 $1$mERr$5.a6P4JqbNiMX01usIfka/
+!
+!
+license udi pid CISCO2901/K9 sn FTX1524F31G-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ftp username cisco
+ip ftp password cisco123
+ip domain-name hotelabdul.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description connection to central server
+ ip address 10.10.10.13 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description connection to first floor 1 switch
+ no ip address
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.60
+ description vlan 60 default gateway
+ encapsulation dot1Q 60
+ ip address 192.168.6.1 255.255.255.0
+!
+interface GigabitEthernet0/1.70
+ description vlan 70 default gateway
+ encapsulation dot1Q 70
+ ip address 192.168.7.1 255.255.255.0
+!
+interface GigabitEthernet0/1.80
+ description vlan 80 default gateway
+ encapsulation dot1Q 80
+ ip address 192.168.8.1 255.255.255.0
+!
+interface GigabitEthernet0/1.999
+ description management vlan default gateway
+ encapsulation dot1Q 999
+ ip address 192.168.200.1 255.255.255.252
+!
+interface Serial0/0/0
+ description WAN connection to 10.10.10.6 on floor 3 router
+ ip address 10.10.10.5 255.255.255.252
+ ip ospf 1 area 0
+ clock rate 64000
+!
+interface Serial0/0/1
+ description #des WAN connection to 10.10.10.2 on floor 1 router
+ ip address 10.10.10.1 255.255.255.252
+ ip ospf 1 area 0
+ clock rate 64000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface GigabitEthernet0/1
+ network 192.168.8.0 0.0.0.255 area 0
+ network 192.168.7.0 0.0.0.255 area 0
+ network 192.168.6.0 0.0.0.255 area 0
+ network 10.10.10.0 0.0.0.3 area 0
+ network 10.10.10.4 0.0.0.3 area 0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/0/1 
+!
+ip flow-export version 9
+!
+!
+!
+banner motd @Keep off@
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 5 0
+ login local
+!
+line aux 0
+!
+line vty 0 4
+ session-limit 5
+ login local
+ transport input ssh
+!
+!
+!
+end
+

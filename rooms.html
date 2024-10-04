@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms - Hotel Abdul</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .room {
+            margin-bottom: 20px;
+        }
+        .room img {
+            max-width: 100%;
+            height: auto;
+        }
+        .room-details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rooms</h1>
+        <div class="room">
+            <img src="room1.jpg" alt="Room 1">
+            <div class="room-details">
+                <h3>Standard Room</h3>
+                <p>Spacious room with a comfortable king-size bed, perfect for single travelers or couples.</p>
+                <p>Price: $100 per night</p>
+            </div>
+            <button class="btn" onclick="toggleDetails(1)">Show Details</button>
+        </div>
+        <div class="room">
+            <img src="room2.jpg" alt="Room 2">
+            <div class="room-details">
+                <h3>Deluxe Room</h3>
+                <p>Luxurious room with a stunning view of the city skyline and a private balcony.</p>
+                <p>Price: $150 per night</p>
+            </div>
+            <button class="btn" onclick="toggleDetails(2)">Show Details</button>
+        </div>
+        <div class="room">
+            <img src="room3.jpg" alt="Room 3">
+            <div class="room-details">
+                <h3>Suite</h3>
+                <p>Elegant suite with separate living and sleeping areas, ideal for families or special occasions.</p>
+                <p>Price: $250 per night</p>
+            </div>
+            <button class="btn" onclick="toggleDetails(3)">Show Details</button>
+        </div>
+        <a href="index.html" class="btn">Back to Home</a>
+        <script>
+            function toggleDetails(roomNumber) {
+                var details = document.getElementsByClassName("room-details")[roomNumber - 1];
+                if (details.style.display === "none" || details.style.display === "") {
+                    details.style.display = "block";
+                } else {
+                    details.style.display = "none";
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

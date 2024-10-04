@@ -1,0 +1,11 @@
+most concepts for this lab was gotten from https://www.youtube.com/@gurutechnetworks
+I made some modifications
+all usernames are cisco
+all passowrds are cicso123
+- Always configure clock rates at the DCE 
+
+- The clock rate of a DCE (data circuit-terminating equipment) device determines the speed at which data is transmitted across a WAN link. 
+	It's usually expressed in bits per second (bps) or kilobits per second (Kbps), 
+	megabits per second (Mbps), or gigabits per second (Gbps) for WAN links.
+
+-Router(config-if)# clock rate (speed in bps)
